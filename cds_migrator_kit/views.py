@@ -37,7 +37,7 @@ def index():
 @blueprint.route("/results")
 def results():
     """Render a basic view."""
-    all_stats = JsonLogger.render_stats()
+    all_stats = JsonLogger().render_stats()
 
     return render_template(
         "cds_migrator_kit/index.html",
