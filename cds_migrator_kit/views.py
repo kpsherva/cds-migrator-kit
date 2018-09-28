@@ -12,7 +12,7 @@ from __future__ import absolute_import, print_function
 
 import logging
 
-from flask import Blueprint, render_template, send_from_directory
+from flask import Blueprint, current_app, render_template, send_from_directory
 
 from cds_migrator_kit.config import MIGRATION_LOGS_PATH
 from cds_migrator_kit.modules.migrator.log import JsonLogger
