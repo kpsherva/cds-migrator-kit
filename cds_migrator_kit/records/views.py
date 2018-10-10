@@ -20,7 +20,7 @@ cli_logger = logging.getLogger('migrator')
 
 
 blueprint = Blueprint(
-    'cds_migrator_kit',
+    'cds_migrator_kit_records',
     __name__,
     template_folder='templates',
     static_folder='static',
@@ -31,7 +31,7 @@ blueprint = Blueprint(
 def index():
     """Render a basic view."""
     return render_template(
-        "cds_migrator_kit/welcome.html",
+        "cds_migrator_kit_records/welcome.html",
     )
 
 
@@ -39,9 +39,8 @@ def index():
 def results():
     """Render a basic view."""
     all_stats = JsonLogger().render_stats()
-
     return render_template(
-        "cds_migrator_kit/index.html",
+        "cds_migrator_kit_records/index.html",
         results=all_stats)
 
 
