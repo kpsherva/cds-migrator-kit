@@ -69,11 +69,12 @@ class CDSRecordDump(RecordDump):
         only the access rights are correct for the last version.
         """
         read_access = set()
-        for coll, restrictions in \
-                self.data['collections']['restricted'].items():
-            read_access.update(restrictions['users'])
-            read_access.update(process_fireroles(restrictions['fireroles']))
-        read_access.discard(None)
+        if self.data['collections']:
+            for coll, restrictions in \
+                    self.data['collections']['restricted'].items():
+                read_access.update(restrictions['users'])
+                read_access.update(process_fireroles(restrictions['fireroles']))
+            read_access.discard(None)
 
         return {'read': list(read_access)}
 
