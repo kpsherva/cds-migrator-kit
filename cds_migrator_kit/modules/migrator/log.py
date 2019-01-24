@@ -109,6 +109,8 @@ class JsonLogger(object):
     def resolve_error_type(exc, rec_stats, key, value):
         """Check the type of exception and log to dict."""
         rec_stats['clean'] = False
+        if hasattr(exc, 'subfield'):
+            key = '{0}__{1}'.format(key, exc.subfield if exc.subfield else '')
         if isinstance(exc, ManualMigrationRequired):
             rec_stats['manual_migration'].append(key)
         elif isinstance(exc, UnexpectedValue):
