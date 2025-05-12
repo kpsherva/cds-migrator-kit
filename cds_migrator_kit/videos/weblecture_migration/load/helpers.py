@@ -54,9 +54,7 @@ def move_file_to_bucket(bucket_id, file_path, is_master=False):
             file.delete()
             file_storage.delete()
         except Exception as cleanup_error:
-            logger_files.error(
-                f"[ERROR] Cleanup failed after copy file fail!"
-            )
+            logger_files.error(f"[ERROR] Cleanup failed after copy file fail!")
         if is_master:  # Fail if file is master
             raise ManualImportRequired(error_msg, stage="load")
 
@@ -87,9 +85,11 @@ def move_file_to_bucket(bucket_id, file_path, is_master=False):
         else:
             eos_path = "root://eosmedia.cern.ch/"
             full_path = file_storage.fileurl.replace(eos_path, "")
-            common = os.path.commonpath([file_path, full_path]) # /eos/media/cds-videos/dev
+            common = os.path.commonpath(
+                [file_path, full_path]
+            )  # /eos/media/cds-videos/dev
             eos_fs = eos_path + common + "/"
-            common_fs=XRootDPyFS(eos_fs)
+            common_fs = XRootDPyFS(eos_fs)
             relative_src = os.path.relpath(file_path, common)
             relative_dst = os.path.relpath(full_path, common)
             common_fs.move(relative_src, relative_dst)
@@ -407,9 +407,7 @@ def transcode_task(payload, subformats):
 
     # Copy the file from master object
     master_quality = f'{original_file["tags"]["height"]}p'
-    quality_config = current_app.config["CDS_OPENCAST_QUALITIES"].get(
-        master_quality
-    )
+    quality_config = current_app.config["CDS_OPENCAST_QUALITIES"].get(master_quality)
     # Master file quality is a valid subformat quality
     if quality_config:
         obj = ObjectVersion.create(

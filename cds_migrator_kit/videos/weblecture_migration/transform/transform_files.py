@@ -260,13 +260,13 @@ class TransformFiles:
                 subformats = stream.get("sources", {}).get("mp4", [])
                 if not subformats:
                     raise UnexpectedValue("Missing MP4 formats in one of the streams")
-                
+
                 if len(subformats) == 1:
                     # TODO is there any better solution to migrate these records?
                     # Only one video — no need to sort
                     highest_quality_videos.append(subformats[0]["src"].strip("/"))
                     continue
-                    
+
                 sorted_subformats = sorted(
                     subformats,
                     key=lambda x: int(x.get("res", {}).get("h", 0)),
